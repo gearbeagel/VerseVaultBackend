@@ -8,6 +8,11 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'first_name', 'last_name', 'username', 'email']
 
+    def validate_username(self, value):
+        if User.objects.exclude(pk=self.instance.pk).filter(username=value).exists():
+            raise serializers.ValidationError("A user with that username already exists.")
+        return value
+
 class ProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer()
 

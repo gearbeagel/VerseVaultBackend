@@ -28,5 +28,6 @@ def current_user(request):
         'id': user.profile.id,
         'username': user.username,
         'email': user.email,
+        'user_type': user.profile.user_type,
     }
     return JsonResponse(user_data)
