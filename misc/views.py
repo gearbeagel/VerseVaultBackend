@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from django.views import View
@@ -20,5 +21,12 @@ def user_check(request):
     return JsonResponse({'is_authenticated': request.user.is_authenticated})
 
 
+@login_required
 def current_user(request):
-    return JsonResponse({'username': request.user.username})
+    user = request.user
+    user_data = {
+        'id': user.profile.id,
+        'username': user.username,
+        'email': user.email,
+    }
+    return JsonResponse(user_data)
