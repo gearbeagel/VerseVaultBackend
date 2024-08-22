@@ -111,7 +111,7 @@ class Dev(Configuration):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'velvetpublisher',
+            'NAME': 'versevault',
             'USER': os.environ["DB_USER"],
             'PASSWORD': os.environ["DB_PASSWORD"],
             'HOST': os.environ["DB_HOST"],
