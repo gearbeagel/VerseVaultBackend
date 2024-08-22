@@ -14,8 +14,8 @@ class Profile(models.Model):
         choices=USER_TYPE_CHOICES,
         default=USER_TYPE_READER,
     )
-    location = models.CharField(max_length=30)
-    bio = models.TextField(blank=True)
+    location = models.CharField(max_length=30, blank=True, null=True)
+    bio = models.TextField(blank=True, null=True)
     icon_name = models.CharField(max_length=100, default='fa-user')
 
 

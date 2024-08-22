@@ -123,8 +123,8 @@ class ProfileViewSet(viewsets.ModelViewSet):
         return Profile.objects.filter(user=self.request.user)
 
     def update(self, request, *args, **kwargs):
-        profile = self.get_object()  # Get the profile for the authenticated user
-        serializer = ProfileSerializer(profile, data=request.data, partial=True)  # Allow partial updates
+        profile = self.get_object()
+        serializer = ProfileSerializer(profile, data=request.data, partial=True)
 
         if serializer.is_valid():
             serializer.save()
