@@ -51,6 +51,7 @@ class Dev(Configuration):
         'allauth.socialaccount',
         'allauth.socialaccount.providers.google',
         'misc.apps.MiscConfig',
+        'works.apps.WorksConfig',
     ]
 
     AUTHENTICATION_BACKENDS = (
