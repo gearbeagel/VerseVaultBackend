@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from user_auth.models import Profile
+from user_auth.models import Profile, WriterStats, ReaderStats
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,6 +13,16 @@ class UserSerializer(serializers.ModelSerializer):
         if User.objects.exclude(pk=self.instance.pk).filter(username=value).exists():
             raise serializers.ValidationError("A user with that username already exists.")
         return value
+
+class WriterStatsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WriterStats
+        fields = '__all__'
+
+class ReaderStatsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReaderStats
+        fields = '__all__'
 
 class ProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer()

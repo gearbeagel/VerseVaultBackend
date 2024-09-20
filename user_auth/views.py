@@ -14,8 +14,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from user_auth.decorators import user_not_authenticated
-from user_auth.models import Profile
-from user_auth.serializers import ProfileSerializer, UserSerializer
+from user_auth.models import Profile, ReaderStats, WriterStats
+from user_auth.serializers import ProfileSerializer, UserSerializer, ReaderStatsSerializer, WriterStatsSerializer
 from user_auth.utils import generate_unique_username
 
 
@@ -122,6 +122,17 @@ class ProfileViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Profile.objects.filter(user=self.request.user)
 
+    def retrieve(self, request, *args, **kwargs):
+        profile = self.get_object()
+        r_stats = ReaderStats.objects.filter(profile=profile).first()
+        w_stats = WriterStats.objects.filter(profile=profile).first()
+
+        profile_data = ProfileSerializer(profile).data
+        profile_data['reader_stats'] = ReaderStatsSerializer(r_stats).data if r_stats else None
+        profile_data['writer_stats'] = WriterStatsSerializer(w_stats).data if w_stats else None
+
+        return Response(profile_data, status=status.HTTP_200_OK)
+
     def update(self, request, *args, **kwargs):
         profile = self.get_object()
         serializer = ProfileSerializer(profile, data=request.data, partial=True)
@@ -147,3 +158,15 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ReaderStatsViewSet(viewsets.ModelViewSet):
+    queryset = ReaderStats.objects.all()
+    serializer_class = ReaderStatsSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class WriterStatsViewSet(viewsets.ModelViewSet):
+    queryset = WriterStats.objects.all()
+    serializer_class = WriterStatsSerializer
+    permission_classes = [IsAuthenticated]

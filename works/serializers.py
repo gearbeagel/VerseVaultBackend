@@ -32,3 +32,8 @@ class ChapterSerializer(serializers.ModelSerializer):
         model = Chapter
         fields = '__all__'
         read_only_fields = ('created_at', 'updated_at', 'work')
+
+    def create(self, validated_data):
+        work_id = validated_data.pop('work_id', None)
+        chapter = Chapter.objects.create(**validated_data, work_id=work_id)
+        return chapter
