@@ -44,7 +44,6 @@ class ChapterViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         serializer = ChapterSerializer(data=request.data)
-        print(request.data)
         if serializer.is_valid():
             work_id = self.request.data['work_id']
             serializer.save(work_id=work_id)
