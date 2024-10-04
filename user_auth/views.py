@@ -10,13 +10,16 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets, status
+from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from user_auth.decorators import user_not_authenticated
-from user_auth.models import Profile, ReaderStats, WriterStats
-from user_auth.serializers import ProfileSerializer, UserSerializer, ReaderStatsSerializer, WriterStatsSerializer
+from user_auth.models import Profile, ReaderStats, WriterStats, Favorite
+from user_auth.serializers import ProfileSerializer, UserSerializer, ReaderStatsSerializer, WriterStatsSerializer, \
+    FavoriteSerializer
 from user_auth.utils import generate_unique_username
+from works.models import Work
 
 
 # Create your views here.
@@ -170,3 +173,42 @@ class WriterStatsViewSet(viewsets.ModelViewSet):
     queryset = WriterStats.objects.all()
     serializer_class = WriterStatsSerializer
     permission_classes = [IsAuthenticated]
+
+
+class FavoriteViewSet(viewsets.ModelViewSet):
+    queryset = Favorite.objects.all()
+    serializer_class = FavoriteSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        work_id = self.request.query_params.get('work')
+        if work_id:
+            return Favorite.objects.filter(profile=self.request.user.profile, work__id=work_id)
+        return Favorite.objects.filter(profile=self.request.user.profile)
+
+    def create(self, request, *args, **kwargs):
+        work_id = request.data.get('work')
+        work = Work.objects.get(id=work_id)
+        profile = request.user.profile
+
+        fav, created = Favorite.objects.get_or_create(profile=profile, work=work)
+        if not fav:
+            return Response({"message": "You have already left a like here. :)"}, status=HTTPStatus.CREATED)
+
+        serializer = FavoriteSerializer(fav)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def destroy(self, request, *args, **kwargs):
+        fav_id = kwargs.get('pk')
+
+        try:
+            fav = Favorite.objects.get(id=fav_id)
+        except Favorite.DoesNotExist:
+            raise NotFound(detail="Favorite not found.")
+
+        fav.delete()
+
+        return Response({
+            "detail": "Removed from favorites. :c"
+        }, status=status.HTTP_204_NO_CONTENT)
+

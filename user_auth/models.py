@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
 from user_auth.choices import *
 from works.models import Work
 
@@ -57,6 +58,15 @@ def manage_user_stats(sender, instance, **kwargs):
     elif instance.is_reader:
         ReaderStats.objects.get_or_create(profile=instance)
 
+
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
+
+
+class Favorite(models.Model):
+    work = models.ForeignKey(Work, on_delete=models.CASCADE, related_name='favorites')
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='favorites')
+
+    def __str__(self):
+        return f'{str(self.profile)} liked {self.work}'

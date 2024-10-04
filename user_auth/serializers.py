@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from user_auth.models import Profile, WriterStats, ReaderStats
+from user_auth.models import Profile, WriterStats, ReaderStats, Favorite
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -31,3 +31,8 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ['user', 'bio', 'location', 'icon_name', 'user_type']
         required = ['user', 'user_type']
+
+class FavoriteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Favorite
+        fields = '__all__'

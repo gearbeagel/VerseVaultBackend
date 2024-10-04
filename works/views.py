@@ -55,11 +55,19 @@ class ChapterViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         work_id = self.request.query_params.get('work')
         if work_id:
-            return Chapter.objects.filter(work_id=work_id)
+            return Chapter.objects.filter(work_id=work_id).order_by('position')
         return super().get_queryset()
 
     def patch(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
+
+    def update(self, request, *args, **kwargs):
+        chapter = self.get_object()
+        position = request.data.get('position', None)
+        if position is not None:
+            chapter.position = position
+            chapter.save()
+        return super().update(request, *args, **kwargs)
 
 
 class TagViewSet(viewsets.ModelViewSet):

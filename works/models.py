@@ -50,7 +50,7 @@ class Work(models.Model):
 class Chapter(models.Model):
     work = models.ForeignKey('Work', on_delete=models.CASCADE, related_name='chapters')
     title = models.CharField(max_length=255, blank=True, null=True)
-    content = models.TextField(null=False)
+    content = models.TextField(null=True)
     position = models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
