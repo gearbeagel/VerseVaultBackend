@@ -184,7 +184,13 @@ class FavoriteViewSet(viewsets.ModelViewSet):
         work_id = self.request.query_params.get('work')
         if work_id:
             return Favorite.objects.filter(profile=self.request.user.profile, work__id=work_id)
-        return Favorite.objects.filter(profile=self.request.user.profile)
+        return Favorite.objects.filter(profile=self.request.user.profile).order_by('-id')
+
+    def get_object(self):
+        work_id = self.request.query_params.get('work')
+        if work_id:
+            return Favorite.objects.filter(profile=self.request.user.profile, work__id=work_id)
+        return Favorite.objects.filter(profile=self.request.user.profile).order_by('-id').first()
 
     def create(self, request, *args, **kwargs):
         work_id = request.data.get('work')
