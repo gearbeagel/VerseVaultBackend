@@ -62,9 +62,10 @@ class Chapter(models.Model):
         ]
 
     def save(self, *args, **kwargs):
-        self.word_count = len(self.content.split())
-        super().save(*args, **kwargs)
-        self.work.update_word_count()
+        if self.content is not None:
+            self.word_count = len(self.content.split())
+            super().save(*args, **kwargs)
+            self.work.update_word_count()
 
     def __str__(self):
         return self.title

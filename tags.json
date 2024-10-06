@@ -1,0 +1,59 @@
+{
+    "tags": [
+        {
+            "name": "Action",
+            "canonical": true,
+            "tag_type": "Genre"
+        },
+        {
+            "name": "Romance",
+            "canonical": true,
+            "tag_type": "Genre"
+        },
+        {
+            "name": "Mystery",
+            "canonical": true,
+            "tag_type": "Genre"
+        },
+        {
+            "name": "Male/Male",
+            "canonical": true,
+            "tag_type": "Relationship"
+        },
+        {
+            "name": "Female/Female",
+            "canonical": true,
+            "tag_type": "Relationship"
+        },
+        {
+            "name": "Male/Female",
+            "canonical": true,
+            "tag_type": "Relationship"
+        },
+        {
+            "name": "Male/Nonbinary",
+            "canonical": true,
+            "tag_type": "Relationship"
+        },
+        {
+            "name": "Female/Nonbinary",
+            "canonical": true,
+            "tag_type": "Relationship"
+        },
+        {
+            "name": "Nonbinary/Nonbinary",
+            "canonical": true,
+            "tag_type": "Relationship"
+        },
+        {
+            "name": "Happy Ending",
+            "canonical": true,
+            "tag_type": "Extra"
+        },
+        {
+            "name": "Bad Ending",
+            "canonical": true,
+            "tag_type": "Extra"
+        }
+    ]
+}

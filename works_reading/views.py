@@ -13,5 +13,5 @@ class WorksReadingViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Work.objects.all().order_by('-created_at')
+        return Work.objects.filter(posted=True).order_by('-created_at')
 

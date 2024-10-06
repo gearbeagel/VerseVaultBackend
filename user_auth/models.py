@@ -18,6 +18,9 @@ class Profile(models.Model):
     bio = models.TextField(blank=True, null=True)
     icon_name = models.CharField(max_length=100, default='fa-user')
 
+    def __str__(self):
+        return self.user.username
+
     @property
     def is_writer(self):
         return self.user_type == USER_TYPE_WRITER
@@ -54,8 +57,6 @@ def create_user_profile(sender, instance, created, **kwargs):
 def manage_user_stats(sender, instance, **kwargs):
     if instance.is_writer:
         WriterStats.objects.get_or_create(profile=instance)
-        ReaderStats.objects.get_or_create(profile=instance)
-    elif instance.is_reader:
         ReaderStats.objects.get_or_create(profile=instance)
 
 
