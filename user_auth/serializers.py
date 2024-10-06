@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from user_auth.models import Profile, WriterStats, ReaderStats, Favorite
-from works.serializers import WorkSerializer
+from works_writing.serializers import WorkSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):

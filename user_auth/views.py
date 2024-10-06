@@ -19,7 +19,7 @@ from user_auth.models import Profile, ReaderStats, WriterStats, Favorite
 from user_auth.serializers import ProfileSerializer, UserSerializer, ReaderStatsSerializer, WriterStatsSerializer, \
     FavoriteSerializer
 from user_auth.utils import generate_unique_username
-from works.models import Work
+from works_writing.models import Work
 
 
 # Create your views here.

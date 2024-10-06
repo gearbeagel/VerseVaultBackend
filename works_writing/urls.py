@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from works.views import WorkViewSet, ChapterViewSet, TagViewSet
+from works_writing.views import WorkViewSet, ChapterViewSet, TagViewSet
 
 router = DefaultRouter()
 router.register(r"works", WorkViewSet, basename="work")

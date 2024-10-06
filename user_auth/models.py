@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from user_auth.choices import *
-from works.models import Work
+from works_writing.models import Work
 
 
 class Profile(models.Model):

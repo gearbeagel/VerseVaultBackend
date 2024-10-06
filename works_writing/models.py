@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 from django.db import models
 
-from works.choices import LANGUAGE_CHOICES, LANGUAGE_ENGLISH
+from works_writing.choices import LANGUAGE_CHOICES, LANGUAGE_ENGLISH
 
 
 class Tag(models.Model):

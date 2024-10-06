@@ -3,8 +3,8 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
-from works.models import Work, Chapter, Tag
-from works.serializers import WorkSerializer, ChapterSerializer, TagSerializer
+from works_writing.models import Work, Chapter, Tag
+from works_writing.serializers import WorkSerializer, ChapterSerializer, TagSerializer
 
 
 class WorkViewSet(viewsets.ModelViewSet):

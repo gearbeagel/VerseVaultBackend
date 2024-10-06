@@ -1,7 +1,7 @@
 # Register your models here.
 
 from django.contrib import admin
-from works.models import *
+from works_writing.models import *
 
 admin.site.register(Work)
 admin.site.register(Tag)

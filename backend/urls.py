@@ -26,5 +26,6 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('user-auth/', include('user_auth.urls')),
     path('misc/', include('misc.urls')),
-    path('works/', include('works.urls')),
+    path('works_writing/', include('works_writing.urls')),
+    path('works_reading/', include('works_reading.urls')),
 ]

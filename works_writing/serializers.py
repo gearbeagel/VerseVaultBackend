@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from works.models import Work, Chapter, Tag
+from works_writing.models import Work, Chapter, Tag
 
 
 class TagSerializer(serializers.ModelSerializer):
