@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -14,6 +15,10 @@ class WorkViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Work.objects.filter(author=self.request.user).order_by('-created_at')
+
+    def get_object(self):
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(Work, id=pk, author=self.request.user)
 
     def perform_create(self, serializer):
         work = serializer.save(author=self.request.user)
