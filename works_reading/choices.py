@@ -1,0 +1,7 @@
+BOOKMARK_STORY = ("BM-S", "Story bookmark")
+BOOKMARK_CHAPTER = ("BM-C", "Chapter bookmark")
+
+BOOKMARK_CHOICES = [
+    BOOKMARK_STORY,
+    BOOKMARK_CHAPTER
+]

@@ -18,10 +18,11 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from works_reading.views import WorksReadingViewSet
+from works_reading.views import WorksReadingViewSet, BookmarksViewSet
 
 router = DefaultRouter()
 router.register(r"works", WorksReadingViewSet, basename="work")
+router.register(r"bookmarks", BookmarksViewSet, basename="bookmark")
 
 urlpatterns = [
     path('', include(router.urls)),
