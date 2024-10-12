@@ -15,6 +15,7 @@ class WorkSerializer(serializers.ModelSerializer):
         many=True,
         required=False
     )
+    author_username = serializers.CharField(source='author.username', read_only=True)
 
     class Meta:
         model = Work

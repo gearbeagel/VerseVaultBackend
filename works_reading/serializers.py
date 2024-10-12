@@ -5,8 +5,8 @@ from works_writing.serializers import WorkSerializer, ChapterSerializer
 
 
 class BookmarkSerializer(serializers.ModelSerializer):
-    work = WorkSerializer(read_only=True)
-    binded_chapter = ChapterSerializer(read_only=True)
+    work = serializers.PrimaryKeyRelatedField(queryset=Work.objects.all())
+    binded_chapter = serializers.PrimaryKeyRelatedField(queryset=Chapter.objects.all(), allow_null=True)
 
     class Meta:
         model = Bookmark
